@@ -666,23 +666,52 @@ document.getElementById("download-forms-button").addEventListener("click", funct
   download(json, jsonFileName, "application/json");
 });
 
-eventBus.on("element.click", function (event) {
-  const element = event.element;
+// =======================================
+// BPMN Form Interaction
+// =======================================
 
-  if (!element.businessObject) {
-    return;
+// Check whether element supports forms
+function isFormElement(element) {
+  if (!element || !element.businessObject) {
+    return false;
   }
 
   const businessObject = element.businessObject;
 
-  const isActivity = businessObject.$instanceOf("bpmn:Activity");
+  return businessObject.$instanceOf("bpmn:Activity") || businessObject.$instanceOf("bpmn:Gateway");
+}
 
-  const isGateway = businessObject.$instanceOf("bpmn:Gateway");
-
-  if (isActivity || isGateway) {
-    showActivityForm(element);
+// VIEW MODE: Single click
+eventBus.on("element.click", function (event) {
+  if (formMode !== "view") {
+    return;
   }
+
+  const element = event.element;
+
+  if (!isFormElement(element)) {
+    return;
+  }
+
+  showActivityForm(element);
 });
+
+// DESIGN MODE: Double click
+eventBus.on("element.dblclick", function (event) {
+  if (formMode !== "design") {
+    return;
+  }
+
+  const element = event.element;
+
+  if (!isFormElement(element)) {
+    return;
+  }
+
+  showActivityForm(element);
+});
+
+console.log("BPMN Form Interaction initialized");
 
 console.log("BPMN Form Designer initialized");
 console.log("Activity form listener initialized");
