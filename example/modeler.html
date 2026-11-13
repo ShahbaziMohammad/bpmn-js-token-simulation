@@ -1,50 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
 
-  <title>Modeler | BPMN Token Simulation Demo</title>
+    <title>Modeler | BPMN Token Simulation Demo</title>
 
-  <link rel="stylesheet" href="./dist/vendor/bpmn-js/assets/diagram-js.css" />
-  <link rel="stylesheet" href="./dist/vendor/bpmn-js/assets/bpmn-js.css" />
-  <link rel="stylesheet" href="./dist/vendor/bpmn-js/assets/bpmn-font/css/bpmn-embedded.css" />
-  <link rel="stylesheet" href="./dist/vendor/bpmn-js-token-simulation/assets/css/bpmn-js-token-simulation.css" />
-  <link rel="stylesheet" href="./dist/vendor/bpmn-js-properties-panel/assets/properties-panel.css" />
-  <link rel="stylesheet" href="./dist/vendor/diagram-js-canvas-lock/assets/canvas-lock.css" />
-  <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./dist/vendor/bpmn-js/assets/diagram-js.css" />
+    <link rel="stylesheet" href="./dist/vendor/bpmn-js/assets/bpmn-js.css" />
+    <link rel="stylesheet" href="./dist/vendor/bpmn-js/assets/bpmn-font/css/bpmn-embedded.css" />
+    <link rel="stylesheet" href="./dist/vendor/bpmn-js-token-simulation/assets/css/bpmn-js-token-simulation.css" />
+    <link rel="stylesheet" href="./dist/vendor/bpmn-js-properties-panel/assets/properties-panel.css" />
+    <link rel="stylesheet" href="./dist/vendor/diagram-js-canvas-lock/assets/canvas-lock.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./styles/activity-form.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
 
-  <link rel="icon" type="image/png" href="favicon.png" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="bpmn-js-token-simulation demo" />
+    <meta property="og:title" content="Modeler | BPMN Token Simulation Demo" />
+    <meta property="og:url" content="https://bpmn-io.github.io/bpmn-js-token-simulation/modeler.html" />
+    <meta property="og:description" content="Simulate your BPMN diagrams with bpmn-js-token-simulation. Understand and learn BPMN execution semantics one token at a time." />
+    <meta property="og:image" content="https://bpmn-io.github.io/bpmn-js-token-simulation/screenshot.png" />
+  </head>
+  <body>
+    <div class="canvas-parent">
+      <div class="canvas" id="canvas">
+        <button id="form-mode-toggle" class="form-mode-toggle" type="button" aria-pressed="false">
+          <span class="form-mode-label">Form Design</span>
 
-  <meta property="og:locale" content="en_US" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="bpmn-js-token-simulation demo" />
-  <meta property="og:title" content="Modeler | BPMN Token Simulation Demo" />
-  <meta property="og:url" content="https://bpmn-io.github.io/bpmn-js-token-simulation/modeler.html" />
-  <meta property="og:description" content="Simulate your BPMN diagrams with bpmn-js-token-simulation. Understand and learn BPMN execution semantics one token at a time." />
-  <meta property="og:image" content="https://bpmn-io.github.io/bpmn-js-token-simulation/screenshot.png" />
-</head>
-<body>
+          <span class="form-mode-icon">
+            <svg viewBox="0 0 28 16">
+              <rect x="1" y="1" width="26" height="14" rx="7" fill="none" stroke="currentColor" stroke-width="2" />
+              <circle cx="8" cy="8" r="5" fill="currentColor" />
+            </svg>
+          </span>
+        </button>
 
-  <div class="canvas-parent">
-    <div class="canvas" id="canvas">
-      <div class="drop-message"><strong>Hint:</strong> Drop a diagram to open</div>
+        <div class="links top-links">
+          <!-- Form Mode Toggle -->
+          <button class="link toolbar-action" id="open-diagram-button" type="button">Open</button>
 
-      <div class="links top-links">
-        <a href="https://github.com/bpmn-io/bpmn-js-token-simulation" class="link" target="_blank" rel="noopener">View on GitHub</a>
+          <button class="link toolbar-action" id="new-diagram-button" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+          </button>
+          <button class="link toolbar-action" id="download-button" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3v12m0 0 5-5m-5 5-5-5M4 19h16" />
+            </svg>
+
+            <span>BPMN</span>
+          </button>
+
+          <button class="link toolbar-action" id="download-forms-button" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3v12m0 0 5-5m-5 5-5-5M4 19h16" />
+            </svg>
+
+            <span>JSON</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="properties-panel" id="properties-panel">
+        <div class="properties-panel-resizer" id="properties-panel-resizer" title="Toggle properties panel" draggable="true">
+          <div class="properties-panel-resize-handle"></div>
+        </div>
       </div>
     </div>
 
-    <div class="properties-panel" id="properties-panel">
-      <div class="properties-panel-resizer" id="properties-panel-resizer" title="Toggle properties panel" draggable="true">
-         <div class="properties-panel-resize-handle"></div>
+    <!-- Activity Form Modal -->
+    <div id="activity-form-modal" class="activity-modal">
+      <div class="activity-modal-content">
+        <div class="activity-modal-header">
+          <h2 id="activity-form-element"></h2>
+
+          <button id="activity-form-close" type="button">&times;</button>
+        </div>
+
+        <div class="form-builder">
+          <div class="form-title-container">
+            <label>Form Title</label>
+
+            <input type="text" id="activity-form-title" placeholder="Enter form title" />
+          </div>
+
+          <div id="activity-form-body"></div>
+
+          <button type="button" id="activity-form-add-field" class="form-action-button">+ Add Field</button>
+
+          <div class="activity-form-actions">
+            <button type="button" id="activity-form-save" class="form-action-button save-button">Save Form</button>
+
+            <button type="button" id="activity-form-cancel" class="form-action-button">Cancel</button>
+          </div>
+        </div>
+        <button type="button" id="activity-form-continue" class="form-action-button save-button" hidden>ادامه شبیه‌سازی</button>
       </div>
     </div>
-  </div>
 
-  <div class="links bottom-links">
-    <button class="link" id="download-button">Download Diagram</button>
-  </div>
-
-  <script src="./dist/modeler.js"></script>
-</body>
+    <script src="./dist/modeler.js"></script>
+  </body>
 </html>

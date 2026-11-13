@@ -1,0 +1,28 @@
+{
+  "Process_id-54d8a5a1-c344-492c-bf9f-b29ad9662303": {
+    "title": "Insert Card",
+    "fields": [
+      {
+        "label": "Card Number",
+        "value": "123456789"
+      },
+      {
+        "label": "Card Type",
+        "value": "Visa"
+      },
+      {
+        "label": "Status",
+        "value": "Active"
+      }
+    ]
+  },
+  "id-c14199c8-b786-4fa5-b985-bbb856303824": {
+    "title": "Selected Interaction?",
+    "fields": [
+      {
+        "label": "Decision",
+        "value": "Select one path"
+      }
+    ]
+  }
+}

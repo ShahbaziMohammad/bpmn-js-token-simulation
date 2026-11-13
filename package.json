@@ -14,7 +14,7 @@
     "start:example": "webpack serve --static ./example --open",
     "lint": "eslint .",
     "test": "karma start",
-    "dev": "npm test -- --auto-watch --no-single-run",
+    "dev": "npm run start:example",
     "lint:theme": "bpmn-io-theme-validate assets/css/bpmn-js-token-simulation.css"
   },
   "repository": {

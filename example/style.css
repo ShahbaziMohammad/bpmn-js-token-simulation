@@ -186,3 +186,242 @@ body:not(.presentation-mode) .bts-notifications {
   display: table-cell;
   vertical-align: middle;
 }
+
+/* RTL Form Layout */
+
+.activity-modal-content {
+  direction: rtl;
+  text-align: right;
+}
+
+.activity-modal-header {
+  direction: rtl;
+  text-align: right;
+}
+
+.activity-modal-header h2 {
+  text-align: right;
+  direction: rtl;
+}
+
+.form-builder {
+  direction: rtl;
+  text-align: right;
+}
+
+.form-title-container,
+.activity-form-row,
+.activity-form-field {
+  direction: rtl;
+  text-align: right;
+}
+
+.activity-modal-content input,
+.activity-modal-content select,
+.activity-modal-content textarea {
+  direction: rtl;
+  text-align: right;
+}
+
+.activity-modal-content label {
+  text-align: right;
+}
+
+.activity-form-actions {
+  direction: rtl;
+  justify-content: flex-start;
+}
+/* ==========================
+   Toolbar Actions
+========================== */
+
+.toolbar-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  cursor: pointer;
+
+  padding: 8px 12px;
+
+  border-radius: 4px;
+
+  transition: all 0.15s ease;
+}
+
+.toolbar-action svg {
+  width: 17px;
+  height: 17px;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.toolbar-action:hover {
+  background-color: var(--token-simulation-primary, #10D070);
+  color: white;
+}
+
+.toolbar-action:active {
+  transform: scale(0.97);
+}
+
+
+/* ==========================
+   Form Mode Toggle
+========================== */
+
+.form-mode-switch {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 3px;
+
+  padding: 4px;
+
+  background-color:
+    var(--token-simulation-control-background, #EFEFEF);
+
+  border-radius: 4px;
+
+  user-select: none;
+}
+
+.mode-button {
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color:
+    var(--token-simulation-control-color, #212121);
+
+  padding: 7px 16px;
+
+  border-radius: 3px;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: all 0.15s ease;
+}
+
+
+/* Active state */
+
+.mode-button.active {
+  background-color:
+    var(--token-simulation-primary, #10D070);
+
+  color:
+    var(--token-simulation-control-surface, white);
+}
+
+
+/* Hover state */
+
+.mode-button:not(.active):hover {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+
+/* Focus */
+
+.mode-button:focus-visible,
+.toolbar-action:focus-visible {
+  outline: 2px solid var(--token-simulation-primary, #10D070);
+  outline-offset: 2px;
+}
+
+
+/* Remove default spacing between mode buttons */
+
+.form-mode-switch .mode-button + .mode-button {
+  margin-left: 0;
+}
+
+/* Form Mode Toggle */
+
+.form-mode-toggle {
+  position: absolute;
+
+  top: 20px;
+  left: 190px;
+
+  z-index: 10;
+
+  cursor: pointer;
+
+  background-color: var(
+    --token-simulation-control-background,
+    #EFEFEF
+  );
+
+  border: none;
+
+  border-radius: var(--button-border-radius, 4px);
+
+  padding: 6px;
+
+  font-size: 16px;
+
+  color: var(
+    --token-simulation-control-color,
+    #212121
+  );
+
+  user-select: none;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  font-family: inherit;
+
+  transition: all 0.15s ease;
+}
+
+.form-mode-toggle .form-mode-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.form-mode-toggle svg {
+  width: 22px;
+  height: 16px;
+}
+
+/* Active = View Mode */
+
+.form-mode-toggle.active,
+.form-mode-toggle:hover {
+
+  background-color: var(
+    --token-simulation-primary,
+    #10D070
+  );
+
+  color: var(
+    --token-simulation-control-surface,
+    #FFFFFF
+  );
+
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+
+  .form-mode-toggle {
+    top: 60px;
+    left: 20px;
+  }
+
+}
